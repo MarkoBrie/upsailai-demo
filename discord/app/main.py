@@ -1,4 +1,5 @@
 import logging
+# Import asynccontextmanager for managing the lifespan of the FastAPI application
 from contextlib import asynccontextmanager
 
 from app.chat.routes import chat_router
@@ -7,11 +8,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+print(f"4. working in file /discord/app/main.py)")
 
-# Set up logging configuration
+# Set up logging configuration, set to INFO level (INFO, DEBUG, WARNING, ERROR, CRITICAL)
 setup_logging()
 
-
+# A decorator that allows you to define an asynchronous context manager.
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # code for anything before starting server

@@ -1,5 +1,8 @@
 from flask import Blueprint, jsonify
 
+
+print(f"?. import file /discord/app/routes.py)")
+
 # Create a Blueprint instance
 main_bp = Blueprint("main", __name__)
 

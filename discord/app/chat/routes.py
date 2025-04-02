@@ -7,6 +7,8 @@ from pydantic import BaseModel, HttpUrl
 from .chain import get_recommended_products, get_stream, manager
 
 
+print(f"3. import file /discord/app/chat/routes.py)")
+
 # Define the model for each message content (text or image)
 class MessageContent(BaseModel):
     type: str  # This will be either "text" or "image_url"
@@ -31,6 +33,11 @@ chat_router = APIRouter(prefix="/chat")
 
 @chat_router.post("", status_code=status.HTTP_200_OK)
 async def chat(request: Request, body: ChatRequest):
+
+    print(f"3. (from /discord/app/chat/routes.py): chat() invoked")
+
+    print(body)
+
     b = await request.body()
     print(b)
 
@@ -61,6 +68,7 @@ async def chat(request: Request, body: ChatRequest):
 async def chatProductRecommendations(request: Request):
     b = await request.json()
 
+    print("function chatProductRecommendations() invoked \n")
     print(b)
 
     return JSONResponse(

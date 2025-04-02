@@ -115,3 +115,32 @@ class MultiModalChroma(Chroma):
                 ids=ids,
             )
         return ids
+    
+    # added by Marko for visualizing the embeddings
+    def get_all_embeddings(self):
+        """
+        Retrieve all embeddings from the collection.
+        """
+        try:
+            # Assuming self._collection has a method to fetch all documents with embeddings
+            documents = self._collection.get_all()
+            embeddings = [doc['embedding'] for doc in documents if 'embedding' in doc]
+            return embeddings
+        except Exception as e:
+            print(f"Error retrieving embeddings: {e}")
+            return []
+        
+    # added by Marko for visualizing the query embeddings
+    def get_query_embedding(self, query: str):
+        """
+        Retrieve the embedding for a specific query.
+        """
+        if self._embedding_function is None:
+            raise ValueError("Embedding function is not set in Chroma instance.")
+        
+        try:
+            embedding = self._embedding_function.embed_query(query)
+            return np.array(embedding)  # Convert to numpy array for easy handling
+        except Exception as e:
+            print(f"Error retrieving query embedding: {e}")
+            return None

@@ -7,11 +7,19 @@ from langchain_core.messages.ai import AIMessageChunk
 
 from langgraph.prebuilt import ToolNode, tools_condition
 
+
+# Print the OpenAI token to the terminal
+#print(f"OpenAI Token:   {settings['OPENAI_API_KEY2']}")
+#print(f"DOC_STORE_PATH: {settings['DOC_STORE_PATH']}")
+
+print(f"5. importing /discord/app/chat/chain.py)")
+
 manager = ChainManager(
     persist_directory=settings["DB_PATH"],
     docstore_path=settings["DOC_STORE_PATH"],
-    openai_token=settings["OPENAI_API_KEY"],
+    openai_token=settings["OPENAI_API_KEY2"],
 )
+
 
 
 from langchain.callbacks.base import BaseCallbackHandler
@@ -77,7 +85,6 @@ async def get_recommended_products(
     customer_style,
     customer_query,
 ):
-
     try:
         retrieved_products, retrieved_docs = manager.retrieve_products(
             recommended_products

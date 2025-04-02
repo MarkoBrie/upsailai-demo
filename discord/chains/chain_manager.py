@@ -6,6 +6,7 @@ from chains.retriever import load_retriever
 from chains.stylist_chain import build_stylist_chain
 from chains.sale_assistant_chain import build_sale_assistant_chain
 
+print(f". importing /discord/chains/chain_manager.py)")
 
 class ChainManager:
     def __init__(self, persist_directory, docstore_path, openai_token):
@@ -24,6 +25,9 @@ class ChainManager:
         self.sale_assistant_chain = build_sale_assistant_chain(self.llm_4o_mini)
 
     def retrieve_products(self, queries):
+        print(f"file chain_manager.py: retrieve_products()")
+        print(f"queries: {queries}")
+
         retrieved_products = {}
         retrieved_docs = {}
         for query in queries:
@@ -44,6 +48,9 @@ class ChainManager:
         return retrieved_products, retrieved_docs
 
     def build_question(self, style_suggestions, customer_query):
+        print(f"file chain_manager.py: build_question)}}()")
+        print(f"style suggestions: {style_suggestions}")
+        print(f"customer query: {customer_query}")
 
         question = f"""
         A customer is looking for {customer_query}

@@ -21,6 +21,11 @@ class CLIPEmbeddings():
 
     def embed_document(self, text):
         return self.embed_text(text)
+    
+    # Count the number of tokens in a text
+    def count_tokens(self, text: str) -> int:
+        tokens = self.processor.tokenizer(text)["input_ids"]
+        return len(tokens)
 
     def embed_text(self, text):
         text_inputs = self.processor(
