@@ -20,9 +20,34 @@ installing python 3.11.2
 ```pyenv local 3.11.2```
 ```curl -sSL https://install.python-poetry.org | python3 -```
 ```export PATH="/Users/markobriesemann/.local/bin:$PATH"```
+```poetry init```
 ```poetry add fastapi uvicorn```
 ```poetry env activate```
 ```poetry env info```
+```poetry run pip install torch```
+```uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload```
+```poetry env use 3.11.2```
+
+
+in order to expose the local IP to the internet and make it accessible to Vercel we try to use ngrok
+```brew install ngrok```
+Create account and run the following command
+```ngrok config add-authtoken <token>```
+Expose the local FASTAPI server that is running on port 8000
+```ngrok http 8000````
+
+https://aa3b-88-185-193-18.ngrok-free.app 
+
+
+
+TODO
+'''import mlflow
+mlflow.langchain.autolog()
+'''
+
+
+
+
 
 tech_it@demo-server:~$ cat /etc/nginx/nginx.conf
 
@@ -110,4 +135,45 @@ http {
 #               proxy      on;
 #       }
 #}
+```  
+
+```
+├── Dockerfile  
+├── Makefile  
+├── app   
+│   ├── README.md  
+│   ├── __init__.py  
+│   ├── chat  
+│   │   ├── __init__.py  
+│   │   ├── chain.py                # ChainManager: access DB, Doc_Store and OpenAI Key
+│   │   └── routes.py               # Chat API Routes, points de terminaison pour envoyer des messages et obtenir des recommandations de produits (@chat_router.post("/recommendations")
+│   ├── core
+│   │   ├── __init__.py
+│   │   └── config.py               # 1. Configuration: load environment variables into "settings"
+│   ├── main.py                     # 3. FastAPI Application
+│   ├── routes.py               #legacy code: maybe delete if not used!
+│   └── utils
+│       ├── __init__.py
+│       └── logging.py              # 2. logging to stdout (console) of INFO, WARNING, ERROR, CRITICAL
+├── chains
+│   ├── __init__.py
+│   ├── chain_manager.py            # def class ChainManager:la récupération de produits, la génération de questions, et l'organisation des produits recommandés
+│   ├── main.py
+│   ├── models
+│   │   ├── __init__.py
+│   │   └── suggestions.py
+│   ├── modules
+│   │   ├── __init__.py
+│   │   ├── embeddings.py           # CLIPembeddings for text and image (get_image_features)
+│   │   ├── splitter.py             # diviser un document produit en plusieurs sous-documents basés sur ses attributs (images, couleur, style, occasions, saisons, météo, description).
+│   │   └── vectorstore.py          # class MulitModalChroma
+│   ├── retriever.py                # load_retriever
+│   ├── sale_assistant_chain.py
+│   ├── stylist_chain.py
+│   └── utils
+│       ├── __init__.py
+│       ├── formatter.py
+│       └── util.py
+├── requirements.txt
+└── wsgi.py
 ```
